@@ -9,6 +9,7 @@ import UploadadapterPlugin from '@ckeditor/ckeditor5-adapter-ckfinder/src/upload
 import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat';
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
+import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import BlockquotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import EasyimagePlugin from '@ckeditor/ckeditor5-easy-image/src/easyimage';
 import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading';
@@ -20,6 +21,7 @@ import ImageuploadPlugin from '@ckeditor/ckeditor5-image/src/imageupload';
 import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
 import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
 import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
+import AlignmentPlugin from '@ckeditor/ckeditor5-alignment/src/alignment';
 
 export default class InlineEditor extends InlineEditorBase {}
 
@@ -30,6 +32,7 @@ InlineEditor.build = {
 		AutoformatPlugin,
 		BoldPlugin,
 		ItalicPlugin,
+		UnderlinePlugin,
 		BlockquotePlugin,
 		EasyimagePlugin,
 		HeadingPlugin,
@@ -40,15 +43,18 @@ InlineEditor.build = {
 		ImageuploadPlugin,
 		LinkPlugin,
 		ListPlugin,
-		ParagraphPlugin
+		ParagraphPlugin,
+		AlignmentPlugin
 	],
 	config: {
 		toolbar: {
 			items: [
 				'heading',
 				'|',
+				'alignment',
 				'bold',
 				'italic',
+				'underline',
 				'link',
 				'bulletedList',
 				'numberedList',
@@ -58,12 +64,42 @@ InlineEditor.build = {
 				'redo'
 			]
 		},
+		heading: {
+			options: [
+				{
+					model: 'paragraph',
+					title: 'Paragrafo',
+					'class': 'ck-heading_paragraph'
+				},
+				{
+					model: 'heading2',
+					view: 'h2',
+					title: 'Titolo grande',
+					'class': 'ck-heading_heading2'
+				},
+				{
+					model: 'heading3',
+					view: 'h3',
+					title: 'Titolo piccolo',
+					'class': 'ck-heading_heading3'
+				}
+			]
+		},
+		ckfinder: {
+			uploadUrl: '/ckeditor/upload-image.php'
+		},
 		image: {
 			toolbar: [
-				'imageStyle:full',
-				'imageStyle:side',
+				'imageTextAlternative',
 				'|',
-				'imageTextAlternative'
+				'imageStyle:alignLeft',
+				'imageStyle:full',
+				'imageStyle:alignRight'
+			],
+			styles: [
+				'full',
+				'alignLeft',
+				'alignRight'
 			]
 		},
 		language: 'en'
